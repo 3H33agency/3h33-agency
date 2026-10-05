@@ -28,7 +28,7 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
           <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-widest">
-            LET'S<br />WORK<br />TOGETHER
+            LET&apos;S<br />WORK<br />TOGETHER
           </h2>
           <div className="space-y-6 text-grey-300">
             <p>Interested in booking? Have a partnership idea? Reach out.</p>
