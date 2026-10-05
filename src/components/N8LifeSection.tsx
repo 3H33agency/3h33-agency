@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 export default function N8LifeSection() {
