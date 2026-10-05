@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Artist {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  slug         String   @unique
+  bio          String?
+  image        String?
+  location     String?
+  styles       String[] @default([])
+  instagram    String?
+  soundcloud   String?
+  spotifyUrl   String?
+  n8lifeId     String?
+  n8lifeUrl    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  events       Event[]
+  bookings     Booking[]
+}
+
+model Event {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String?
+  date         DateTime
+  location     String
+  venue        String
+  image        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  n8lifeUrl    String?
+  buyUrl       String?
+
+  artists      Artist[]
+  bookings     Booking[]
+}
+
+model Client {
+  id           String   @id @default(cuid())
+  name         String
+  type         String   // club, bar, venue, promoter
+  quote        String?
+  location     String?
+  image        String?
+  website      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Booking {
+  id           String   @id @default(cuid())
+  artistId     String
+  eventId      String?
+  contactName  String
+  contactEmail String
+  contactPhone String?
+  venue        String?
+  date         DateTime?
+  status       String   @default("pending") // pending, confirmed, cancelled
+  message      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  artist       Artist   @relation(fields: [artistId], references: [id])
+  event        Event?   @relation(fields: [eventId], references: [id])
+
+  @@index([artistId])
+  @@index([eventId])
+}
+
+model ContactMessage {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  subject      String?
+  message      String
+  type         String   @default("general") // general, booking, partnership
+  read         Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Setting {
+  key          String   @id
+  value        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
