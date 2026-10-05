@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const ARTISTS = [
